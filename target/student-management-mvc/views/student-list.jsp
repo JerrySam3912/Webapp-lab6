@@ -83,9 +83,86 @@
             width: 50px; height: 50px;
             object-fit: cover; border-radius: 4px;
         }
+
+        /* ========== EX7: NAVBAR + ROLE BADGE ========== */
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h2 {
+            font-size: 20px;
+            color: #333;
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 14px;
+        }
+        .user-info span:first-child {
+            margin-bottom: 4px;
+        }
+        .role-badge {
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .role-admin {
+            background-color: #ffe3e3;
+            color: #b71c1c;
+        }
+        .role-user {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .btn-nav,
+        .btn-logout {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            color: #333;
+            background-color: #f8f9fa;
+            transition: all 0.2s;
+        }
+        .btn-nav:hover,
+        .btn-logout:hover {
+            background-color: #e2e6ea;
+        }
     </style>
 </head>
 <body>
+
+    <!-- EX7: Navigation Bar -->
+    <div class="navbar">
+        <h2>📚 Student Management System</h2>
+        <div class="navbar-right">
+            <div class="user-info">
+                <span>Welcome, ${sessionScope.fullName}</span>
+                <span class="role-badge role-${sessionScope.role}">
+                    ${sessionScope.role}
+                </span>
+            </div>
+            <a href="dashboard" class="btn-nav">Dashboard</a>
+            <a href="logout" class="btn-logout">Logout</a>
+        </div>
+    </div>
+
     <div class="container">
         <h1>📚 Student Management System</h1>
         <p class="subtitle">MVC Pattern with Jakarta EE & JSTL</p>
@@ -104,11 +181,14 @@
             </div>
         </c:if>
         
-        <!-- Add New Student Button -->
+        <!-- Add New Student Button (Admin only) -->
         <div style="margin-bottom: 20px;">
-            <a href="student?action=new" class="btn btn-primary">
-                ➕ Add New Student
-            </a>
+            <c:if test="${sessionScope.role eq 'admin'}">
+                <a href="student?action=new" class="btn btn-primary">
+                    ➕ Add New Student
+                </a>
+            </c:if>
+
             <!-- BONUS 1: Export to Excel -->
             <a href="${pageContext.request.contextPath}/export"
                class="btn btn-secondary"
@@ -252,7 +332,11 @@
                                 </a>
                             </th>
                             <th>Photo</th>
-                            <th>Actions</th>
+
+                            <!-- EX7: Actions column only for admin -->
+                            <c:if test="${sessionScope.role eq 'admin'}">
+                                <th>Actions</th>
+                            </c:if>
                         </tr>
                     </thead>
                     <tbody>
@@ -270,18 +354,22 @@
                                              class="student-photo" />
                                     </c:if>
                                 </td>
-                                <td>
-                                    <div class="actions">
-                                        <a href="student?action=edit&id=${student.id}" class="btn btn-secondary">
-                                            ✏️ Edit
-                                        </a>
-                                        <a href="student?action=delete&id=${student.id}" 
-                                            class="btn btn-danger"
-                                            onclick="return confirm('Are you sure you want to delete this student?')">
-                                            🗑️ Delete
-                                        </a>
-                                    </div>
-                                </td>
+
+                                <!-- EX7: Action buttons - Admin only -->
+                                <c:if test="${sessionScope.role eq 'admin'}">
+                                    <td>
+                                        <div class="actions">
+                                            <a href="student?action=edit&id=${student.id}" class="btn btn-secondary">
+                                                ✏️ Edit
+                                            </a>
+                                            <a href="student?action=delete&id=${student.id}" 
+                                                class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this student?')">
+                                                🗑️ Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </tbody>

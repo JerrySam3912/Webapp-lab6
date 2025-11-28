@@ -1,4 +1,13 @@
-D:\webapp\student-management-mvc\src\main\java\com\student\dao\StudentDAO.java
-D:\webapp\student-management-mvc\src\main\java\com\student\model\Student.java
+D:\webapp\student-management-mvc\src\main\java\com\student\controller\LoginController.java
 D:\webapp\student-management-mvc\src\main\java\com\student\controller\StudentController.java
 D:\webapp\student-management-mvc\src\main\java\com\student\controller\ExportServlet.java
+D:\webapp\student-management-mvc\src\main\java\com\student\dao\UserDAO.java
+D:\webapp\student-management-mvc\src\main\java\com\student\filter\AuthFilter.java
+D:\webapp\student-management-mvc\src\main\java\com\student\controller\LogoutController.java
+D:\webapp\student-management-mvc\src\main\java\com\student\dao\StudentDAO.java
+D:\webapp\student-management-mvc\src\main\java\com\student\filter\AdminFilter.java
+D:\webapp\student-management-mvc\src\main\java\com\student\controller\DashboardController.java
+D:\webapp\student-management-mvc\src\main\java\com\student\model\Student.java
+D:\webapp\student-management-mvc\src\main\java\com\student\controller\ChangePasswordController.java
+D:\webapp\student-management-mvc\src\main\java\com\student\model\User.java
+D:\webapp\student-management-mvc\src\main\java\com\student\util\PasswordHashGenerator.java
